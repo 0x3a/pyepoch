@@ -16,7 +16,7 @@ setup(
         url = 'https://github.com/0x3a/pyepoch',
         packages=find_packages(),
         include_package_data=True,
-        description = 'A simple python-based command-line utility to convert (time|date)stamps to epoch and back.',
+        description = 'A simple python-based command-line utility to convert time or date stamps to epoch and back.',
         long_description=read('README.md'),
         install_requires=[
             'python-dateutil',

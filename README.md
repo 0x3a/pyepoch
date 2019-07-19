@@ -1,5 +1,5 @@
 # pyepoch
-A simple python-based command-line utility to convert (time|date)stamps to epoch and back.
+A simple python-based command-line utility to convert time or date stamps to epoch and back.
 
 #### Usage
 `pyepoch` is installed as a command-line utility accessible as `epoch` from the command-line.
