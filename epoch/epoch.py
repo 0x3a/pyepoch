@@ -6,7 +6,6 @@ import argparse
 
 from dateutil import parser as du_parser
 
-
 # Taken from: https://mail.python.org/pipermail/tutor/2003-November/026645.html
 class Unbuffered(object):
    def __init__(self, stream):
@@ -20,7 +19,6 @@ class Unbuffered(object):
    def __getattr__(self, attr):
        return getattr(self.stream, attr)
 
-
 # Remove buffering, processing large datasets eats memory otherwise
 sys.stdout = Unbuffered(sys.stdout)
 
@@ -31,10 +29,8 @@ def to_iso_datetime(val, in_seconds):
     return datetime.datetime.utcfromtimestamp(val).isoformat()
 
 def to_epoch(val, in_seconds):
-    dt = du_parser.parse(val)
-    epoch = datetime.datetime.utcfromtimestamp(0)
-    return int((dt - epoch).total_seconds() * (1 if in_seconds else 1000))
-
+    dt = du_parser.parse(val, fuzzy=True)
+    return int(dt.timestamp()) * (1 if in_seconds else 1000)
 
 # Ghetto type check & conversion is ghetto
 def convert_value(val):
@@ -45,7 +41,6 @@ def convert_value(val):
             return int(val)
         except:
             return None
-
 
 def convert(val, in_seconds):
     pval = convert_value(val)

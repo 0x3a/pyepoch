@@ -10,6 +10,7 @@ def read(fname):
 
 setup(
         name = 'pyepoch',
+        python_requires='>=3.3',
         version = epoch.__version__,
         author = 'Yonathan Klijnsma',
         author_email = 'admin@0x3a.com',
