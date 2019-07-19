@@ -22,15 +22,16 @@ class Unbuffered(object):
 # Remove buffering, processing large datasets eats memory otherwise
 sys.stdout = Unbuffered(sys.stdout)
 
-def to_iso_datetime(val, in_seconds):
+def to_iso_datetime(val, in_seconds, format=None):
     if not in_seconds:
         val /= 1000
 
-    return datetime.datetime.utcfromtimestamp(val).isoformat()
+    dt = datetime.datetime.utcfromtimestamp(val)
+    return dt.strftime(format) if format else dt.isoformat()
 
 def to_epoch(val, in_seconds):
     dt = du_parser.parse(val, fuzzy=True)
-    return int(dt.timestamp()) * (1 if in_seconds else 1000)
+    return int(dt.replace(tzinfo=datetime.timezone.utc).timestamp()) * (1 if in_seconds else 1000)
 
 # Ghetto type check & conversion is ghetto
 def convert_value(val):
@@ -42,10 +43,10 @@ def convert_value(val):
         except:
             return None
 
-def convert(val, in_seconds):
+def convert(val, in_seconds, format):
     pval = convert_value(val)
     if pval is not None:
-        return to_iso_datetime(pval, in_seconds)
+        return to_iso_datetime(pval, in_seconds, format)
     else:
         return to_epoch(val, in_seconds)
 
@@ -57,14 +58,16 @@ def parse_args():
                         help="For input epochs, assume second notations, for input datestamps conver to epochs in seconds."
                         )
 
+    parser.add_argument('-f', '--format', type=str, default=None, help="Format the output of the datestring.")
+
     return parser.parse_args()
 
 def main():
     args = parse_args()
 
     if args.value:
-        print(convert(args.value, in_seconds=args.seconds))
+        print(convert(args.value, in_seconds=args.seconds, format=args.format))
     else:
         for line in sys.stdin:
             line = line.rstrip()
-            print(convert(line, in_seconds=args.seconds))
+            print(convert(line, in_seconds=args.seconds, format=args.format))
