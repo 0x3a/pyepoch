@@ -18,6 +18,7 @@ setup(
         include_package_data=True,
         description = 'A simple python-based command-line utility to convert time or date stamps to epoch and back.',
         long_description=read('README.md'),
+        long_description_content_type='text/markdown',
         install_requires=[
             'python-dateutil',
         ],
