@@ -9,14 +9,14 @@ def read(fname):
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
 
 setup(
-        name = 'epoch',
+        name = 'pyepoch',
         version = epoch.__version__,
         author = 'Yonathan Klijnsma',
         author_email = 'admin@0x3a.com',
         url = 'https://github.com/0x3a/pyepoch',
         packages=find_packages(),
         include_package_data=True,
-        description = 'A simple python-based command-line utility to convert (time|date)stamps to epoch and back',
+        description = 'A simple python-based command-line utility to convert (time|date)stamps to epoch and back.',
         long_description=read('README.md'),
         install_requires=[
             'python-dateutil',
