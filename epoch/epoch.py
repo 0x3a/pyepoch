@@ -43,7 +43,7 @@ def convert_value(val):
         except:
             return None
 
-def convert(val, in_seconds, format):
+def convert(val, in_seconds=False, format=None):
     pval = convert_value(val)
     if pval is not None:
         return to_iso_datetime(pval, in_seconds, format)
